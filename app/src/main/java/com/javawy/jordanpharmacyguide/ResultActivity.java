@@ -18,6 +18,7 @@ import android.widget.ListView;
 import com.javawy.jordanpharmacyguide.adapters.CustomAdapter;
 import com.javawy.jordanpharmacyguide.adapters.DataModel;
 import com.javawy.jordanpharmacyguide.utils.PharmacyGuideSQLLitehelper;
+import com.javawy.jordanpharmacyguide.utils.Utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -105,6 +106,22 @@ public class ResultActivity extends AppCompatActivity
      */
     private void fetchPharmacies(String name,String city,String location) {
 
+        String pharmacyNameParam = getIntent().getStringExtra("pharmacyName");
+        String pharmacyLocationParam = getIntent().getStringExtra("pharmacyLocation");
+        String cityParam = getIntent().getStringExtra("city");
+
+        pharmacyNameParam = !Utils.isBlankOrNull(pharmacyNameParam) ? pharmacyNameParam : "";
+        pharmacyLocationParam = !Utils.isBlankOrNull(pharmacyLocationParam) ? pharmacyLocationParam : "" ;
+        cityParam = !Utils.isBlankOrNull(cityParam) ? cityParam : "" ;
+
+        String[] parameters = new String[3];
+        String whereClause = "";
+
+        whereClause += " NAME LIKE ? AND ADDRESS LIKE ? AND CITY LIKE ? ";
+        parameters[0] = "%" + pharmacyNameParam + "%";
+        parameters[1] = "%" + pharmacyLocationParam + "%";
+        parameters[2] = "%" + cityParam + "%";
+
         PharmacyGuideSQLLitehelper dpHelper = new PharmacyGuideSQLLitehelper(this);
         SQLiteDatabase liteDatabase = dpHelper.getReadableDatabase();
         Cursor cursor =  null;
@@ -112,8 +129,8 @@ public class ResultActivity extends AppCompatActivity
         try {
             cursor = liteDatabase.query("PHARMACY",
                     new String[]{"_id","NAME","CITY","ADDRESS"},
-                    null,
-                    null,
+                    whereClause,
+                    parameters,
                     null, null, null);
 
             // Populate List..
@@ -128,8 +145,20 @@ public class ResultActivity extends AppCompatActivity
 
             e.printStackTrace();
         } finally {
-            cursor.close();
-            liteDatabase.close();
+            try {
+                if(cursor != null) {
+                    cursor.close();
+                }
+                liteDatabase.close();
+            } catch (Exception e) {
+                StringWriter stringWriter = new StringWriter();
+                PrintWriter writer = new PrintWriter(stringWriter);
+                e.printStackTrace(writer);
+
+                String exception =  stringWriter.getBuffer().toString();
+
+                e.printStackTrace();
+            }
         }
     }
 
