@@ -1,5 +1,6 @@
 package com.javawy.jordanpharmacyguide;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
@@ -11,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,6 +39,14 @@ public class ViewDetailsActivity extends AppCompatActivity
             // Fetch Pharmacy Details..
             fetchPharmacyDetails();
 
+            Button shareResult = (Button)findViewById(R.id.shareResult);
+            shareResult.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    shareResult();
+                }
+            });
+
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -54,7 +65,7 @@ public class ViewDetailsActivity extends AppCompatActivity
 
         try {
             cursor = liteDatabase.query("PHARMACY",
-                    new String[]{"_id","NAME","CITY","ADDRESS","CONTACT_NUMBER","EMAIL"},
+                    new String[]{"_id","NAME","CITY","ADDRESS","CONTACT_NUMBER","FAX","EMAIL"},
                     "_id = ?",
                     parameter,
                     null, null, null);
@@ -68,8 +79,6 @@ public class ViewDetailsActivity extends AppCompatActivity
             e.printStackTrace(writer);
 
             String exception =  stringWriter.getBuffer().toString();
-
-            e.printStackTrace();
         } finally {
             cursor.close();
             liteDatabase.close();
@@ -98,8 +107,11 @@ public class ViewDetailsActivity extends AppCompatActivity
             TextView pharmacyContactValue = (TextView) findViewById(R.id.pharmacyContactValue);
             pharmacyContactValue.setText(cursor.getString(4));
 
+            TextView faxValue = (TextView) findViewById(R.id.faxValue);
+            faxValue.setText(cursor.getString(5));
+
             TextView pharmacyEmailValue = (TextView) findViewById(R.id.pharmacyEmailValue);
-            pharmacyEmailValue.setText(cursor.getString(5));
+            pharmacyEmailValue.setText(cursor.getString(6));
         }
     }
 
@@ -128,6 +140,54 @@ public class ViewDetailsActivity extends AppCompatActivity
             String exception =  stringWriter.getBuffer().toString();
             System.out.println(stringWriter.getBuffer().toString());
         }
+    }
+
+    /**
+     * Back Button
+     *
+     * @param view : View
+     */
+    public void backButton(View view) {
+        super.onBackPressed();
+    }
+
+    /**
+     * Share Result Intent
+     */
+    private void shareResult() {
+        final StringBuffer shareTextObj = new StringBuffer("");
+
+        TextView pharmacyNameValue = (TextView) findViewById(R.id.pharmacyNameValue);
+        TextView pharmacyCityValue = (TextView) findViewById(R.id.pharmacyCityValue);
+        TextView pharmacyAddressValue = (TextView) findViewById(R.id.pharmacyAddressValue);
+        TextView pharmacyContactValue = (TextView) findViewById(R.id.pharmacyContactValue);
+        TextView faxValue = (TextView) findViewById(R.id.faxValue);
+        TextView pharmacyEmailValue = (TextView) findViewById(R.id.pharmacyEmailValue);
+
+        if(!pharmacyNameValue.getText().equals(getString(R.string.not_exists))) {
+            shareTextObj.append(getString(R.string.pharmacy_name)).append(" ").append(pharmacyNameValue.getText()).append("\n");;
+        }
+        if(!pharmacyCityValue.getText().equals(getString(R.string.not_exists))) {
+            shareTextObj.append(getString(R.string.city_name)).append(" ").append(pharmacyCityValue.getText()).append("\n");;
+        }
+        if(!pharmacyAddressValue.getText().equals(getString(R.string.not_exists))) {
+            shareTextObj.append(getString(R.string.pharmacy_location)).append(" ").append(pharmacyAddressValue.getText()).append("\n");;
+        }
+        if(!pharmacyContactValue.getText().equals(getString(R.string.not_exists))) {
+            shareTextObj.append(getString(R.string.pharmacy_contact)).append(" ").append(pharmacyContactValue.getText()).append("\n");;
+        }
+        if(!faxValue.getText().equals(getString(R.string.not_exists))) {
+            shareTextObj.append(getString(R.string.fax)).append(" ").append(faxValue.getText()).append("\n");;
+        }
+        if(!pharmacyEmailValue.getText().equals(getString(R.string.not_exists))) {
+            shareTextObj.append(getString(R.string.pharmacy_email)).append(" ").append(pharmacyEmailValue.getText()).append("\n");;
+        }
+
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("text/plain");
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, pharmacyNameValue.getText());
+        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareTextObj.toString());
+        startActivity(Intent.createChooser(sharingIntent, pharmacyNameValue.getText()));
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

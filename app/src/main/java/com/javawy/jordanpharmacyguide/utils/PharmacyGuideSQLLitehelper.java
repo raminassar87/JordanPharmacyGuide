@@ -49,6 +49,7 @@ public class PharmacyGuideSQLLitehelper extends SQLiteOpenHelper {
                 "                CITY TEXT,\n" +
                 "                ADDRESS TEXT,\n" +
                 "                CONTACT_NUMBER TEXT,\n" +
+                "                FAX TEXT,\n" +
                 "                EMAIL TEXT," +
                 "                LATITUDE TEXT," +
                 "                LONGITUDE TEXT)";
@@ -64,7 +65,7 @@ public class PharmacyGuideSQLLitehelper extends SQLiteOpenHelper {
     private void addRecords(SQLiteDatabase db) {
 
         //String filePath="C:\\rami-data\\Rami\\Programming\\NetBeans Projects\\user.json";
-        String filePath="pharmacies.json";
+        String filePath="pharmaciesdirectory.json";
         InputStream is = null;
         try {
             //is = new FileInputStream(new File(filePath));
@@ -111,6 +112,7 @@ public class PharmacyGuideSQLLitehelper extends SQLiteOpenHelper {
             drinkValues.put("CITY", jsonObject.getString("city"));
             drinkValues.put("ADDRESS", jsonObject.getString("location"));
             drinkValues.put("CONTACT_NUMBER", jsonObject.getString("contactNumber"));
+            drinkValues.put("FAX", jsonObject.getString("fax"));
             drinkValues.put("EMAIL", jsonObject.getString("email"));
             drinkValues.put("LATITUDE", "");
             drinkValues.put("LONGITUDE", "");

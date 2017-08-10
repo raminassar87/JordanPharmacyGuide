@@ -4,6 +4,8 @@
     <string name="pharmacy_location">العنوان :</string>
     <string name="pharmacy_email">البريد الإلكتروني :</string>
     <string name="pharmacy_contact">رقم الهاتف  :</string>
+    <string name="fax">رقم الفاكس  :</string>
+    <string name="not_exists">لا يوجد</string>
     <string name="share_pharmacy_details">إرسال البيانات</string>
     <string name="back">رجوع</string>
     <string name="city_name">المدينة :</string>
