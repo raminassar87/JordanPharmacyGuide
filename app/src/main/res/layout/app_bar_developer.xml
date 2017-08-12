@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.javawy.jordanpharmacyguide.activities.ViewDetailsActivity">
+    android:layoutDirection="ltr"
+    tools:context="com.javawy.jordanpharmacyguide.activities.DeveloperActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_height="wrap_content"
@@ -21,6 +22,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_view_details"/>
+    <include layout="@layout/content_developer"/>
 
 </android.support.design.widget.CoordinatorLayout>

@@ -1,12 +1,12 @@
-package com.javawy.jordanpharmacyguide;
+package com.javawy.jordanpharmacyguide.activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -25,6 +26,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.javawy.jordanpharmacyguide.R;
 import com.javawy.jordanpharmacyguide.utils.Utils;
 
 import java.util.ArrayList;
@@ -33,11 +35,34 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final EditText pharmacyNameText = (EditText) findViewById(R.id.pharmacyNameText);
+        EditText pharmacyLocationText = (EditText) findViewById(R.id.locationText);
+        Spinner citiesSpinner = (Spinner) findViewById(R.id.citiesSpinner);
+
+        //pharmacyNameText.setImeActionLabel("Search",EditorInfo.IME_ACTION_UNSPECIFIED);
+
+        pharmacyNameText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+        pharmacyNameText.setImeActionLabel("Next",EditorInfo.IME_ACTION_NEXT);
+
+        pharmacyNameText.setOnEditorActionListener(new TextView.OnEditorActionListener(){
+            @Override
+            public boolean onEditorAction(TextView arg0, int actionId, KeyEvent event) {
+
+                int keyCode = event.getKeyCode();
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE) || (actionId == EditorInfo.IME_ACTION_NEXT)) {
+                    System.out.println("IME_ACTION_NEXT");
+                }
+//                if(actionId == EditorInfo.IME_ACTION_NEXT) {
+//                    System.out.println("IME_ACTION_NEXT");
+//                }
+                return false;
+            }
+        });
 
         // Init City Spinner
         initCitySpinner();
@@ -104,26 +129,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Init City Spinner
      */
     private void initCitySpinner() {
-
         Spinner citiesSpinner = (Spinner) findViewById(R.id.citiesSpinner);
-
         CustomSpinnerAdapter customSpinnerAdapter = new CustomSpinnerAdapter(MainActivity.this);
         citiesSpinner.setAdapter(customSpinnerAdapter);
-        citiesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                String item = parent.getItemAtPosition(position).toString();
-
-                Toast.makeText(parent.getContext(), "Android Custom Spinner Example Output..." + item, Toast.LENGTH_LONG).show();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
+
 
     public class CustomSpinnerAdapter extends BaseAdapter implements SpinnerAdapter {
 
@@ -185,46 +195,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        if (id == R.id.nav_main_page) {
+            return true;
+        } else if (id == R.id.nav_rate) {
+            String str ="https://play.google.com/store/apps/details?id=com.javawy.jordanpharmacyguide";
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(str)));
+            return true;
         } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            String shareBody = getString(R.string.share_desc);
+            shareBody += "\n";
+            shareBody += "https://play.google.com/store/apps/details?id=com.javawy.jordanpharmacyguide";
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "دليل صيدليات الأردن");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(sharingIntent, "دليل صيدليات الأردن"));
+        } else if (id == R.id.nav_developer) {
+            Intent intent = new Intent(this, DeveloperActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_about) {
+            Intent intent = new Intent(this, AboutAppActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_close) {
+            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+            homeIntent.addCategory( Intent.CATEGORY_HOME );
+            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -1,9 +1,9 @@
-package com.javawy.jordanpharmacyguide;
+package com.javawy.jordanpharmacyguide.activities;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
+import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -14,15 +14,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import com.javawy.jordanpharmacyguide.adapters.DataModel;
+import com.javawy.jordanpharmacyguide.R;
 import com.javawy.jordanpharmacyguide.utils.PharmacyGuideSQLLitehelper;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
 
 public class ViewDetailsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,6 +49,7 @@ public class ViewDetailsActivity extends AppCompatActivity
             e.printStackTrace();
         }
     }
+
     /**
      * Fetch Pharmacy Details..
      */
@@ -196,18 +195,33 @@ public class ViewDetailsActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        if (id == R.id.nav_main_page) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_rate) {
+            String str ="https://play.google.com/store/apps/details?id=com.javawy.jordanpharmacyguide";
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(str)));
+            return true;
         } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            String shareBody = getString(R.string.share_desc);
+            shareBody += "\n";
+            shareBody += "https://play.google.com/store/apps/details?id=com.javawy.jordanpharmacyguide";
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "دليل صيدليات الأردن");
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(sharingIntent, "دليل صيدليات الأردن"));
+        } else if (id == R.id.nav_developer) {
+            Intent intent = new Intent(this, DeveloperActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_about) {
+            Intent intent = new Intent(this, AboutAppActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_close) {
+            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+            homeIntent.addCategory( Intent.CATEGORY_HOME );
+            homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(homeIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

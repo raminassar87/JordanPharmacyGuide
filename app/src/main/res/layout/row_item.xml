@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="Marshmallow"
+        android:text=""
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/black" />
 
@@ -20,17 +20,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
         android:layout_marginTop="5dp"
-        android:text="Android 6.0"
+        android:text=""
         android:textColor="@android:color/black" />
 
-    <ImageView
+    <!--ImageView
         android:id="@+id/item_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@mipmap/ic_pharmacy_info" />
+        android:src="@mipmap/ic_pharmacy_info" /-->
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -47,12 +47,14 @@
 
         <TextView
             android:id="@+id/pharmacy_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dip"
+            android:layout_weight=".30"
             android:layout_height="wrap_content"
             android:text=""
+            android:textAlignment="center"
             android:textAppearance="?android:attr/textAppearanceButton"
             android:textColor="@android:color/black"
-            android:textStyle="bold" />
+            android:textStyle="italic" />
 
     </LinearLayout>
 </RelativeLayout>

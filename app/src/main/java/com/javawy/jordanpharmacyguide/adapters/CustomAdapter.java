@@ -42,7 +42,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
         int position=(Integer) v.getTag();
         Object object= getItem(position);
         DataModel dataModel=(DataModel)object;
-
+/*
         switch (v.getId()) {
 
             case R.id.item_info:
@@ -52,6 +52,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
 
                 break;
         }
+*/
     }
 
     private int lastPosition = -1;
@@ -74,7 +75,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
             viewHolder.txtType = (TextView) convertView.findViewById(R.id.type);
             //viewHolder.txtVersion = (TextView) convertView.findViewById(R.id.version_number);
             viewHolder.pharmacyName = (TextView) convertView.findViewById(R.id.pharmacy_name);
-            viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
+            //viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
 
             result=convertView;
 
@@ -88,12 +89,14 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
         result.startAnimation(animation);
         lastPosition = position;
 
-        viewHolder.txtName.setText(dataModel.getName());
-        viewHolder.txtType.setText(dataModel.getType());
+        //viewHolder.txtName.setText(dataModel.getName());
+        //viewHolder.txtType.setText(dataModel.getType());
         //viewHolder.txtVersion.setText(dataModel.getVersion_number());
         viewHolder.pharmacyName.setText(dataModel.getPharmacyName());
+        /*
         viewHolder.info.setOnClickListener(this);
         viewHolder.info.setTag(position);
+        */
         // Return the completed view to render on screen
         return convertView;
     }

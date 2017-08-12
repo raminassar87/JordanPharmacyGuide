@@ -7,15 +7,13 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_view_details"
-    tools:context="com.javawy.jordanpharmacyguide.ViewDetailsActivity">
+    tools:context="com.javawy.jordanpharmacyguide.activities.ViewDetailsActivity">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context="com.javawy.jordanpharmacyguide.ViewDetailsActivity"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-3dp">
+        tools:context="com.javawy.jordanpharmacyguide.activities.ViewDetailsActivity">
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
@@ -30,13 +28,13 @@
                 android:id="@+id/pharmacyNameValue"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:textAlignment="center" />
+                android:layout_alignParentLeft="true" />
 
             <TextView
                 android:id="@+id/pharmacyNameTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:layout_alignParentRight="true"
                 android:text="@string/pharmacy_name" />
         </RelativeLayout>
@@ -54,14 +52,14 @@
                 android:id="@+id/pharmacyCityValue"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:textAlignment="center" />
+                android:layout_alignParentLeft="true"/>
 
             <TextView
                 android:id="@+id/pharmacyCityTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:textStyle="bold"
                 android:text="@string/city_name" />
         </RelativeLayout>
 
@@ -78,13 +76,13 @@
                 android:id="@+id/pharmacyAddressValue"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:textAlignment="center" />
+                android:layout_alignParentLeft="true" />
 
             <TextView
                 android:id="@+id/pharmacyAddressTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:layout_alignParentRight="true"
                 android:text="@string/pharmacy_location" />
         </RelativeLayout>
@@ -102,14 +100,14 @@
                 android:id="@+id/pharmacyContactValue"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:textAlignment="center" />
+                android:layout_alignParentLeft="true" />
 
             <TextView
                 android:id="@+id/pharmacyContactTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:textStyle="bold"
                 android:text="@string/pharmacy_contact" />
         </RelativeLayout>
 
@@ -126,13 +124,13 @@
                 android:id="@+id/faxValue"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:textAlignment="center" />
+                android:layout_alignParentLeft="true" />
 
             <TextView
                 android:id="@+id/faxTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
                 android:layout_alignParentRight="true"
                 android:text="@string/fax" />
         </RelativeLayout>
@@ -150,14 +148,14 @@
                 android:id="@+id/pharmacyEmailValue"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:textAlignment="center" />
+                android:layout_alignParentLeft="true" />
 
             <TextView
                 android:id="@+id/pharmacyEmailTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:textStyle="bold"
                 android:text="@string/pharmacy_email" />
         </RelativeLayout>
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -165,14 +163,15 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:paddingBottom="@dimen/activity_vertical_margin">
+            android:paddingRight="@dimen/activity_horizontal_margin">
 
             <Button android:id="@+id/shareResult"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
+                android:background="@drawable/button_shape"
+                android:textColor="@color/white"
+                android:textSize="15dip"
                 android:layout_alignParentRight="true"
                 android:text="@string/share_pharmacy_details" />
 
@@ -182,8 +181,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:onClick="backButton"
-                android:layout_toLeftOf="@id/shareResult"
-                android:text="@string/back" />
+                android:background="@drawable/button_shape"
+                android:textColor="@color/white"
+                android:textSize="15dip"
+                android:text="@string/back"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/shareResult"
+                android:layout_toStartOf="@+id/shareResult"
+                android:layout_marginRight="12dp"
+                android:layout_marginEnd="12dp" />
 
         </RelativeLayout>
 
