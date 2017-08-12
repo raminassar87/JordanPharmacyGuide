@@ -49,6 +49,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         pharmacyNameText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
         pharmacyNameText.setImeActionLabel("Next",EditorInfo.IME_ACTION_NEXT);
 
+        pharmacyNameText.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getAction() == KeyEvent.ACTION_DOWN
+                        && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
+                    System.out.println("adasdasd");
+                    return false;
+                } else if (event.getAction() == KeyEvent.ACTION_DOWN
+                    && event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+
+                    System.out.println("adasdasd");
+
+                }
+                return false;
+            }
+        });
         pharmacyNameText.setOnEditorActionListener(new TextView.OnEditorActionListener(){
             @Override
             public boolean onEditorAction(TextView arg0, int actionId, KeyEvent event) {
