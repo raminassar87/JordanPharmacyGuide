@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.javawy.jordanpharmacyguide.R;
@@ -95,8 +96,6 @@ public class ViewDetailsActivity extends AppCompatActivity
             TextView pharmacyNameValue = (TextView) findViewById(R.id.pharmacyNameValue);
             pharmacyNameValue.setText(cursor.getString(1));
 
-            String name = cursor.getString(1);
-
             TextView pharmacyCityValue = (TextView) findViewById(R.id.pharmacyCityValue);
             pharmacyCityValue.setText(cursor.getString(2));
 
@@ -111,6 +110,16 @@ public class ViewDetailsActivity extends AppCompatActivity
 
             TextView pharmacyEmailValue = (TextView) findViewById(R.id.pharmacyEmailValue);
             pharmacyEmailValue.setText(cursor.getString(6));
+
+            if(!pharmacyEmailValue.getText().equals(getString(R.string.not_exists))) {
+                pharmacyEmailValue.setGravity(android.view.Gravity.END);
+            }
+            if(!faxValue.getText().equals(getString(R.string.not_exists))) {
+                faxValue.setGravity(android.view.Gravity.END);
+            }
+            if(!pharmacyContactValue.getText().equals(getString(R.string.not_exists))) {
+                pharmacyContactValue.setGravity(android.view.Gravity.END);
+            }
         }
     }
 
