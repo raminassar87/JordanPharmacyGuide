@@ -17,7 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.javawy.jordanpharmacyguide.R;
-import com.javawy.jordanpharmacyguide.adapters.CustomAdapter;
+import com.javawy.jordanpharmacyguide.adapters.FavoritesListAdapter;
 import com.javawy.jordanpharmacyguide.adapters.DataModel;
 import com.javawy.jordanpharmacyguide.utils.PharmacyGuideSQLLitehelper;
 import com.javawy.jordanpharmacyguide.utils.Utils;
@@ -26,17 +26,8 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 
-/**
- * Result Activity
- *
- * @author Rami Nassar
- */
-public class ResultActivity extends AppCompatActivity
+public class FavoriteActivity  extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
-    /**
-     * Fields
-     */
 
     /** Data Models */
     ArrayList<DataModel> dataModels;
@@ -45,84 +36,24 @@ public class ResultActivity extends AppCompatActivity
     ListView listView;
 
     /** Custom Adapter */
-    private static CustomAdapter adapter;
+    private static FavoritesListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result);
+        setContentView(R.layout.activity_favorite);
 
-        Intent intent = getIntent();
+        // Fetch Favorite Pharmacies..
+        fetchFavoritePharmacies();
 
-        String pharmacyName = intent.getStringExtra("pharmacyName");
-        String city = intent.getStringExtra("city");
-        String pharmacyLocation = intent.getStringExtra("pharmacyLocation");
-
-        // Fetch Pharmacies..
-        fetchPharmacies(pharmacyName,city,pharmacyLocation);
-
-        // Populate Drower Layout
-        populateDrowerLayout();
+        // Populate Drawer Layout
+        populateDrawerLayout();
     }
 
     /**
-     * Populate Drower Layout
+     * Fetch Favorite Pharmacies..
      */
-    private void populateDrowerLayout() {
-        try {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
-
-            /*
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            });
-            */
-
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.addDrawerListener(toggle);
-            toggle.syncState();
-
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            navigationView.setNavigationItemSelectedListener(this);
-
-        } catch(Exception ex) {
-            StringWriter stringWriter = new StringWriter();
-            PrintWriter writer = new PrintWriter(stringWriter);
-            ex.printStackTrace(writer);
-
-            String exception =  stringWriter.getBuffer().toString();
-            System.out.println(stringWriter.getBuffer().toString());
-        }
-    }
-
-    /**
-     * Fetch Pharmacies..
-     */
-    private void fetchPharmacies(String name,String city,String location) {
-
-        String pharmacyNameParam = getIntent().getStringExtra("pharmacyName");
-        String pharmacyLocationParam = getIntent().getStringExtra("pharmacyLocation");
-        String cityParam = getIntent().getStringExtra("city");
-
-        pharmacyNameParam = !Utils.isBlankOrNull(pharmacyNameParam) ? pharmacyNameParam : "";
-        pharmacyLocationParam = !Utils.isBlankOrNull(pharmacyLocationParam) ? pharmacyLocationParam : "" ;
-        cityParam = !Utils.isBlankOrNull(cityParam) ? cityParam : "" ;
-
-        String[] parameters = new String[3];
-        String whereClause = "";
-
-        whereClause += " NAME LIKE ? AND ADDRESS LIKE ? AND CITY LIKE ? ";
-        parameters[0] = "%" + pharmacyNameParam + "%";
-        parameters[1] = "%" + pharmacyLocationParam + "%";
-        parameters[2] = "%" + cityParam + "%";
+    private void fetchFavoritePharmacies() {
 
         PharmacyGuideSQLLitehelper dpHelper = new PharmacyGuideSQLLitehelper(this);
         SQLiteDatabase liteDatabase = dpHelper.getReadableDatabase();
@@ -131,8 +62,8 @@ public class ResultActivity extends AppCompatActivity
         try {
             cursor = liteDatabase.query("PHARMACY",
                     new String[]{"_id","NAME","CITY","ADDRESS","IS_FAVORITE"},
-                    whereClause,
-                    parameters,
+                    " IS_FAVORITE = ? ",
+                    new String[]{"2"},
                     null, null, null);
 
             // Populate List..
@@ -142,10 +73,6 @@ public class ResultActivity extends AppCompatActivity
             StringWriter stringWriter = new StringWriter();
             PrintWriter writer = new PrintWriter(stringWriter);
             e.printStackTrace(writer);
-
-            String exception =  stringWriter.getBuffer().toString();
-
-            e.printStackTrace();
         } finally {
             try {
                 if(cursor != null) {
@@ -165,7 +92,7 @@ public class ResultActivity extends AppCompatActivity
      */
     private void populateList(Cursor cursor) {
 
-        listView = (ListView)findViewById(R.id.results);
+        listView = (ListView)findViewById(R.id.resultsFav);
         dataModels = new ArrayList<>();
 
         if (cursor.moveToFirst()) {
@@ -189,7 +116,7 @@ public class ResultActivity extends AppCompatActivity
                     cursor.getInt(4)));
         }
 
-        adapter = new CustomAdapter(dataModels,getApplicationContext());
+        adapter = new FavoritesListAdapter(dataModels,FavoriteActivity.this);
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -199,17 +126,40 @@ public class ResultActivity extends AppCompatActivity
                 Intent intent = new Intent(getApplicationContext(), ViewDetailsActivity.class);
                 intent.putExtra("pharmacyId", dataModel.getId());
                 startActivity(intent);
-//                Snackbar.make(view, dataModel.getName()+"\n"+dataModel.getType()+" API: "+dataModel.getVersion_number(), Snackbar.LENGTH_LONG)
-//                        .setAction("No action", null).show();
             }
         });
     }
 
+    /**
+     * Populate Drawer Layout
+     */
+    private void populateDrawerLayout() {
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    /**
+     * On Navigation Item Selected
+     *
+     * @param item : Menu Item
+     * @return
+     */
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
         if (id == R.id.nav_main_page) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -231,9 +181,6 @@ public class ResultActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_about) {
             Intent intent = new Intent(this, AboutAppActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.nav_favorite) {
-            Intent intent = new Intent(this, FavoriteActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_close) {
             Intent homeIntent = new Intent(Intent.ACTION_MAIN);

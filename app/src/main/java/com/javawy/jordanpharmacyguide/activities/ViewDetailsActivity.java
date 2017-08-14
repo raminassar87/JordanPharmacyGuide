@@ -127,27 +127,18 @@ public class ViewDetailsActivity extends AppCompatActivity
      * Populate Drower Layout
      */
     private void populateDrowerLayout() {
-        try {
-            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(toolbar);
 
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            drawer.addDrawerListener(toggle);
-            toggle.syncState();
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            navigationView.setNavigationItemSelectedListener(this);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
 
-        } catch(Exception ex) {
-            StringWriter stringWriter = new StringWriter();
-            PrintWriter writer = new PrintWriter(stringWriter);
-            ex.printStackTrace(writer);
-
-            String exception =  stringWriter.getBuffer().toString();
-            System.out.println(stringWriter.getBuffer().toString());
-        }
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     /**
@@ -222,6 +213,9 @@ public class ViewDetailsActivity extends AppCompatActivity
             startActivity(Intent.createChooser(sharingIntent, "دليل صيدليات الأردن"));
         } else if (id == R.id.nav_developer) {
             Intent intent = new Intent(this, DeveloperActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_favorite) {
+            Intent intent = new Intent(this, FavoriteActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_about) {
             Intent intent = new Intent(this, AboutAppActivity.class);

@@ -23,14 +23,21 @@
         android:text=""
         android:textColor="@android:color/black" />
 
-    <!--ImageView
-        android:id="@+id/item_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <!--ToggleButton
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@mipmap/ic_pharmacy_info" /-->
+        android:id="@+id/myToggleButton"
+        android:textOn=""
+        android:textOff=""/-->
+
+    <ImageView
+        android:id="@+id/fav_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -48,7 +55,8 @@
         <TextView
             android:id="@+id/pharmacy_name"
             android:layout_width="0dip"
-            android:layout_weight=".30"
+            android:layout_weight=".90"
+            android:layout_marginLeft="20dp"
             android:layout_height="wrap_content"
             android:text=""
             android:textAlignment="center"
@@ -56,5 +64,12 @@
             android:textColor="@android:color/black"
             android:textStyle="italic" />
 
+        <!--ToggleButton
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/myToggleButton"
+            android:textOn=""
+            android:textOff=""/-->
     </LinearLayout>
 </RelativeLayout>

@@ -51,6 +51,7 @@ public class PharmacyGuideSQLLitehelper extends SQLiteOpenHelper {
                 "                CONTACT_NUMBER TEXT,\n" +
                 "                FAX TEXT,\n" +
                 "                EMAIL TEXT," +
+                "                IS_FAVORITE INTEGER  DEFAULT 1," +
                 "                LATITUDE TEXT," +
                 "                LONGITUDE TEXT)";
         db.execSQL(stringSql);

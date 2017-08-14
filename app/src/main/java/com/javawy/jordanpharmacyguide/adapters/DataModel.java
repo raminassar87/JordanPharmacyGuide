@@ -11,10 +11,13 @@ public class DataModel {
     /** Name */
     private String name;
 
+    /** Is Favorite */
+    private Integer isFavorite;
+
     /** Type */
     private String type;
 
-    /** Vrsion Number */
+    /** Version Number */
     private String version_number;
 
     /** Feature */
@@ -31,13 +34,14 @@ public class DataModel {
      * @param version_number : version_number
      * @param feature feature
      */
-    public DataModel(Integer id,String pharmacyName,String name, String type, String version_number, String feature ) {
-        this.id=id;
-        this.name=name;
-        this.type=type;
-        this.version_number=version_number;
-        this.pharmacyName=pharmacyName;
-        this.feature=feature;
+    public DataModel(Integer id,String pharmacyName,String name, String type, String version_number, String feature,Integer isFavorite) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.version_number = version_number;
+        this.pharmacyName = pharmacyName;
+        this.feature = feature;
+        this.isFavorite = isFavorite;
     }
 
     public String getName() {
@@ -76,5 +80,23 @@ public class DataModel {
      */
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    /**
+     * Getter for Is Favorite
+     *
+     * @return Is Favorite
+     */
+    public Integer getIsFavorite() {
+        return isFavorite;
+    }
+
+    /**
+     * Setter for Is Favorite
+     *
+     * @param isFavorite :  Is Favorite
+     */
+    public void setIsFavorite(Integer isFavorite) {
+        this.isFavorite = isFavorite;
     }
 }

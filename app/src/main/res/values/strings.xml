@@ -8,6 +8,13 @@
     <string name="not_exists">لا يوجد</string>
     <string name="share_pharmacy_details">إرسال البيانات</string>
     <string name="back">رجوع</string>
+    <string name="added">تم إضافة</string>
+    <string name="remove">تم حذف</string>
+    <string name="to_fav">إلى قائمة الصيدليات المفضلة</string>
+    <string name="from_fav">من قائمة الصيدليات المفضلة</string>
+    <string name="confirm_remove_fav_title">تأكيد حذف من الفضلة</string>
+    <string name="confirm_remove_fav">من هل أنت متأكد من حذف الصيدلية من القائمة المفضلة</string>
+
     <string name="share_desc">دليل صيدليات الأردن هو برنامج يعطيك خدمة الإستعلام عن أي صيدلية في الأردن بدون إنترنت</string>
     <string name="city_name">المدينة :</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -17,6 +24,7 @@
     <string name="suggestionsMail">javawy87@gmail.com</string>
     <string name="developerName">مصمم البرنامج : رامي نصار</string>
     <string name="main_page">الصفحة الرئيسية</string>
+    <string name="nav_favorite">قائمتي المفضلة</string>
     <string name="rate_app">تقييم التطبيق</string>
     <string name="share_app">نشر التطبيق</string>
     <string name="developer">مطور التطبيق</string>
@@ -39,4 +47,18 @@
         <item>مادبا</item>
         <item>معان</item>
     </string-array>
+    <string name="title_activity_add_mob">AddMobActivity</string>
+
+    <string name="interstitial_ad_sample">Interstitial Ad Sample</string>
+    <string name="start_level">Level 1</string>
+    <string name="next_level">Next Level</string>
+    <!-- -
+        This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
+        For more information, see https://support.google.com/admob/answer/3052638
+    <!- -->
+    <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+
+    <!--
+        Rami ca-app-pub-3517273960705854/3161204729
+    -->
 </resources>

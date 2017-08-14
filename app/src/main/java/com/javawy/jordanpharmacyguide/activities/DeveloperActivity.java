@@ -52,6 +52,9 @@ public class DeveloperActivity extends AppCompatActivity implements NavigationVi
         } else if (id == R.id.nav_developer) {
             Intent intent = new Intent(this, DeveloperActivity.class);
             startActivity(intent);
+        } else if (id == R.id.nav_favorite) {
+            Intent intent = new Intent(this, FavoriteActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_about) {
             Intent intent = new Intent(this, AboutAppActivity.class);
             startActivity(intent);

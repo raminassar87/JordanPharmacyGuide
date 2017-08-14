@@ -1,10 +1,12 @@
 package com.javawy.jordanpharmacyguide.adapters;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
@@ -13,25 +15,22 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ToggleButton;
+import android.widget.Toast;
 
 import com.javawy.jordanpharmacyguide.R;
-import com.javawy.jordanpharmacyguide.activities.ViewDetailsActivity;
+import com.javawy.jordanpharmacyguide.activities.MainActivity;
 import com.javawy.jordanpharmacyguide.utils.PharmacyGuideSQLLitehelper;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
 
-import static android.R.drawable.btn_star_big_on;
-
 /**
  * Created by anupamchugh on 09/02/16.
  */
-public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnClickListener{
+public class FavoritesListAdapter extends ArrayAdapter<DataModel> implements View.OnClickListener{
 
     private ArrayList<DataModel> dataSet;
     Context mContext;
@@ -45,7 +44,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
         ImageView favIcon;
     }
 
-    public CustomAdapter(ArrayList<DataModel> data, Context context) {
+    public FavoritesListAdapter(ArrayList<DataModel> data, Context context) {
         super(context, R.layout.row_item, data);
         this.dataSet = data;
         this.mContext=context;
@@ -53,27 +52,7 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        int position=(Integer) v.getTag();
-        Object object= getItem(position);
-        DataModel dataModel=(DataModel)object;
-/*
-        switch (v.getId()) {
-            case R.id.fav_icon:
-                String message = null;
-                if(getIsFavorites(dataModel.getId())) {
-                    message = "Removed From Favorite";
-                    addRemoveToFavorites("Remove",dataModel.getId());
-                    v.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_off));
-                } else {
-                    message = "Added To Favorite";
-                    addRemoveToFavorites("Add",dataModel.getId());
-                    v.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_on));
-                }
-                Snackbar.make(v, dataModel.getPharmacyName() + message, Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
-            break;
-        }
-*/
+        // Nothing..
     }
 
     private int lastPosition = -1;
@@ -97,7 +76,6 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
             //viewHolder.txtVersion = (TextView) convertView.findViewById(R.id.version_number);
             viewHolder.pharmacyName = (TextView) convertView.findViewById(R.id.pharmacy_name);
             viewHolder.favIcon = (ImageView) convertView.findViewById(R.id.fav_icon);
-            //viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
 
             result=convertView;
 
@@ -114,35 +92,42 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
         viewHolder.pharmacyName.setText(dataModel.getPharmacyName());
 
         if(getIsFavorites(dataModel.getId())) {
-            viewHolder.favIcon.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_on));
+            viewHolder.favIcon.setBackground(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_on));
         } else {
-            viewHolder.favIcon.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_off));
+            viewHolder.favIcon.setBackground(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_off));
         }
-
         viewHolder.favIcon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                String message = null;
-                if(getIsFavorites(dataModel.getId())) {
-                    message = getContext().getString(R.string.remove) + " \"" +
-                                dataModel.getPharmacyName() + "\" " + getContext().getString(R.string.from_fav);
-                    addRemoveToFavorites("Remove",dataModel.getId());
-                    v.setBackground(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_off));
-                } else {
-                    message = getContext().getString(R.string.added) + " \"" +
-                            dataModel.getPharmacyName() + "\" " + getContext().getString(R.string.to_fav);
-                    addRemoveToFavorites("Add",dataModel.getId());
-                    v.setBackground(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_on));
+            public void onClick(final View v) {
+                try {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle(getContext().getString(R.string.confirm_remove_fav_title))
+                            .setMessage(getContext().getString(R.string.confirm_remove_fav))
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    String message = null;
+                                    remove(dataModel);
+
+                                    message = getContext().getString(R.string.remove) + " \"" + dataModel.getPharmacyName() + "\" " + getContext().getString(R.string.from_fav);
+                                    addRemoveToFavorites("Remove", dataModel.getId());
+                                    Snackbar.make(v, message, Snackbar.LENGTH_LONG).setAction("No action", null).show();
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, null).show();
+                } catch(Exception e) {
+                    StringWriter stringWriter = new StringWriter();
+                    PrintWriter writer = new PrintWriter(stringWriter);
+                    e.printStackTrace(writer);
+
+                    String exception =  stringWriter.getBuffer().toString();
+                    System.out.println(stringWriter.getBuffer().toString());
                 }
 
-                Snackbar.make(v, message, Snackbar.LENGTH_LONG).setAction("No action", null).show();
-            }
+                }
         });
 
-        /*
-        viewHolder.info.setOnClickListener(this);
-        viewHolder.info.setTag(position);
-        */
         // Return the completed view to render on screen
         return convertView;
     }

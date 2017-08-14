@@ -40,42 +40,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final EditText pharmacyNameText = (EditText) findViewById(R.id.pharmacyNameText);
-        EditText pharmacyLocationText = (EditText) findViewById(R.id.locationText);
-        Spinner citiesSpinner = (Spinner) findViewById(R.id.citiesSpinner);
+        final EditText pharmacyLocationText = (EditText) findViewById(R.id.locationText);
 
-        //pharmacyNameText.setImeActionLabel("Search",EditorInfo.IME_ACTION_UNSPECIFIED);
+        pharmacyLocationText.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        pharmacyLocationText.setImeActionLabel("Next",EditorInfo.IME_ACTION_SEARCH);
 
-        pharmacyNameText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
-        pharmacyNameText.setImeActionLabel("Next",EditorInfo.IME_ACTION_NEXT);
-
-        pharmacyNameText.setOnKeyListener(new View.OnKeyListener() {
+        pharmacyLocationText.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
 
                 if (event.getAction() == KeyEvent.ACTION_DOWN
                         && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) {
-                    System.out.println("adasdasd");
-                    return false;
-                } else if (event.getAction() == KeyEvent.ACTION_DOWN
-                    && event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-
-                    System.out.println("adasdasd");
-
+                    doSearch(pharmacyLocationText);
+                    return true;
                 }
-                return false;
-            }
-        });
-        pharmacyNameText.setOnEditorActionListener(new TextView.OnEditorActionListener(){
-            @Override
-            public boolean onEditorAction(TextView arg0, int actionId, KeyEvent event) {
-
-                int keyCode = event.getKeyCode();
-                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE) || (actionId == EditorInfo.IME_ACTION_NEXT)) {
-                    System.out.println("IME_ACTION_NEXT");
-                }
-//                if(actionId == EditorInfo.IME_ACTION_NEXT) {
-//                    System.out.println("IME_ACTION_NEXT");
-//                }
                 return false;
             }
         });
@@ -237,6 +214,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(intent);
         } else if (id == R.id.nav_about) {
             Intent intent = new Intent(this, AboutAppActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_favorite) {
+            Intent intent = new Intent(this, FavoriteActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_close) {
             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
