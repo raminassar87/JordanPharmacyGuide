@@ -56,9 +56,6 @@ public class AboutAppActivity extends AppCompatActivity
         } else if (id == R.id.nav_favorite) {
             Intent intent = new Intent(this, FavoriteActivity.class);
             startActivity(intent);
-        } else if (id == R.id.nav_about) {
-            Intent intent = new Intent(this, AboutAppActivity.class);
-            startActivity(intent);
         } else if (id == R.id.nav_close) {
             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
             homeIntent.addCategory( Intent.CATEGORY_HOME );

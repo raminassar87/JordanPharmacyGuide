@@ -15,12 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.javawy.jordanpharmacyguide.R;
 import com.javawy.jordanpharmacyguide.adapters.FavoritesListAdapter;
 import com.javawy.jordanpharmacyguide.adapters.DataModel;
 import com.javawy.jordanpharmacyguide.utils.PharmacyGuideSQLLitehelper;
-import com.javawy.jordanpharmacyguide.utils.Utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -48,6 +48,14 @@ public class FavoriteActivity  extends AppCompatActivity
 
         // Populate Drawer Layout
         populateDrawerLayout();
+
+        TextView message = (TextView)findViewById(R.id.not_exists_fav);
+        listView = (ListView)findViewById(R.id.resultsFav);
+        if(listView.getAdapter().getCount() == 0) {
+            message.setVisibility(View.VISIBLE);
+        } else {
+            message.setVisibility(View.INVISIBLE);
+        }
     }
 
     /**

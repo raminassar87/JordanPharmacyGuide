@@ -10,146 +10,153 @@
     tools:context="com.javawy.jordanpharmacyguide.activities.ViewDetailsActivity">
 
     <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dip"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-2dp">
 
         <TextView
             android:id="@+id/pharmacyNameTxt"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
             android:layout_alignParentRight="true"
-            android:text="@string/pharmacy_name" />
+            android:text="@string/pharmacy_name"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/pharmacyNameValue"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true" />
+        <TextView
+            android:id="@+id/pharmacyNameValue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true" />
 
-            <TextView
-                android:id="@+id/pharmacyCityTxt"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:paddingTop="20dp"
-                android:textStyle="bold"
-                android:text="@string/city_name" />
+        <TextView
+            android:id="@+id/pharmacyCityTxt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingTop="20dp"
+            android:text="@string/city_name"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/pharmacyCityValue"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true" />
+        <TextView
+            android:id="@+id/pharmacyCityValue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true" />
 
-            <TextView
-                android:id="@+id/pharmacyAddressTxt"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:paddingTop="20dp"
-                android:layout_alignParentRight="true"
-                android:text="@string/pharmacy_location" />
+        <TextView
+            android:id="@+id/pharmacyAddressTxt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingTop="20dp"
+            android:text="@string/pharmacy_location"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/pharmacyAddressValue"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/pharmacyAddressValue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
 
-                android:layout_alignParentLeft="true" />
+            android:layout_alignParentLeft="true" />
 
-            <TextView
-                android:id="@+id/pharmacyContactTxt"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:textStyle="bold"
-                android:paddingTop="20dp"
-                android:text="@string/pharmacy_contact" />
+        <TextView
+            android:id="@+id/pharmacyContactTxt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingTop="20dp"
+            android:text="@string/pharmacy_contact"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/pharmacyContactValue"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true" />
+        <TextView
+            android:id="@+id/pharmacyContactValue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true" />
 
-            <TextView
-                    android:id="@+id/faxTxt"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:paddingTop="20dp"
-                    android:layout_alignParentRight="true"
-                    android:text="@string/fax" />
 
-            <TextView
-                android:id="@+id/faxValue"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true" />
+        <TextView
+            android:id="@+id/faxTxt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingTop="20dp"
+            android:text="@string/fax"
+            android:textStyle="bold" />
 
-            <TextView
-                    android:id="@+id/pharmacyEmailTxt"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:textStyle="bold"
-                    android:paddingTop="20dp"
-                    android:text="@string/pharmacy_email" />
+        <TextView
+            android:id="@+id/faxValue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true" />
 
-            <TextView
-                android:id="@+id/pharmacyEmailValue"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true" />
+        <TextView
+            android:id="@+id/pharmacyEmailTxt"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingTop="20dp"
+            android:text="@string/pharmacy_email"
+            android:textStyle="bold" />
 
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/pharmacyEmailValue"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true" />
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="30dp"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp">
+
+            <Button
+                android:id="@+id/shareResult"
                 android:layout_width="wrap_content"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="30dp"
-                tools:layout_editor_absoluteY="0dp"
-                tools:layout_editor_absoluteX="8dp">
+                android:layout_height="40dip"
+                android:layout_gravity="right"
+                android:background="@drawable/button_shape"
+                android:text="@string/share_pharmacy_details"
+                android:textColor="@color/white"
+                android:textSize="15dip"
+                android:layout_alignBaseline="@+id/backButton"
+                android:layout_alignBottom="@+id/backButton"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
-                <Button android:id="@+id/shareResult"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:background="@drawable/button_shape"
-                    android:textColor="@color/white"
-                    android:textSize="15dip"
-                    android:layout_alignParentRight="true"
-                    android:text="@string/share_pharmacy_details" />
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="wrap_content"
+                android:layout_height="40dip"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="center"
+                android:layout_marginEnd="12dp"
+                android:layout_marginRight="12dp"
+                android:layout_toLeftOf="@+id/shareResult"
+                android:layout_toStartOf="@+id/shareResult"
+                android:background="@drawable/button_shape"
+                android:onClick="backButton"
+                android:text="@string/back"
+                android:textColor="@color/white"
+                android:textSize="15dip" />
 
-                <Button
-                    android:id="@+id/backButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:onClick="backButton"
-                    android:background="@drawable/button_shape"
-                    android:textColor="@color/white"
-                    android:textSize="15dip"
-                    android:text="@string/back"
-                    android:layout_alignParentTop="true"
-                    android:layout_toLeftOf="@+id/shareResult"
-                    android:layout_toStartOf="@+id/shareResult"
-                    android:layout_marginRight="12dp"
-                    android:layout_marginEnd="12dp" />
+        </RelativeLayout>
 
-            </RelativeLayout>
-
-            <TextView
-                android:layout_weight="1"
-                android:layout_height="0dp"
-                android:layout_width="0dp"
-                android:text=""
-                tools:layout_editor_absoluteY="0dp"
-                tools:layout_editor_absoluteX="8dp" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text=""
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="0dp" />
 
     </LinearLayout>
 

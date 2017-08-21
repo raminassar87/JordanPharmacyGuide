@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(!Utils.isBlankOrNull(pharmacyLocation)) {
             intent.putExtra("pharmacyLocation", pharmacyLocation);
         }
-        if(!Utils.isBlankOrNull(city)) {
+        if(!Utils.isBlankOrNull(city) && !city.equals(getString(R.string.select_city))) {
             intent.putExtra("city", city);
         }
 
@@ -194,9 +194,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_main_page) {
-            return true;
-        } else if (id == R.id.nav_rate) {
+        if (id == R.id.nav_rate) {
             String str ="https://play.google.com/store/apps/details?id=com.javawy.jordanpharmacyguide";
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(str)));
             return true;

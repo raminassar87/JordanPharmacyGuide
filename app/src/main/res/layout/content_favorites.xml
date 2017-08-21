@@ -9,6 +9,15 @@
     tools:showIn="@layout/app_bar_favorites"
     tools:context="com.javawy.jordanpharmacyguide.activities.FavoriteActivity">
 
+    <TextView android:id="@+id/not_exists_fav"
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:textSize="20dp"
+        android:textColor="@color/red"
+        android:paddingTop="30dp"
+        android:layout_height="wrap_content"
+        android:text="@string/favNotExists"/>
+
     <ListView android:id="@+id/resultsFav"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

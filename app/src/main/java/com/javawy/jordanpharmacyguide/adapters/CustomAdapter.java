@@ -114,9 +114,9 @@ public class CustomAdapter extends ArrayAdapter<DataModel> implements View.OnCli
         viewHolder.pharmacyName.setText(dataModel.getPharmacyName());
 
         if(getIsFavorites(dataModel.getId())) {
-            viewHolder.favIcon.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_on));
+            viewHolder.favIcon.setBackground(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_on));
         } else {
-            viewHolder.favIcon.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_off));
+            viewHolder.favIcon.setBackground(ContextCompat.getDrawable(getContext(), android.R.drawable.btn_star_big_off));
         }
 
         viewHolder.favIcon.setOnClickListener(new View.OnClickListener() {

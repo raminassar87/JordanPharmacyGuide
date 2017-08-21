@@ -9,6 +9,15 @@
     tools:showIn="@layout/app_bar_result"
     tools:context="com.javawy.jordanpharmacyguide.activities.ResultActivity">
 
+        <TextView android:id="@+id/not_exists_message"
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textColor="@color/red"
+            android:paddingTop="30dp"
+            android:layout_height="wrap_content"
+            android:text="@string/notExists"/>
+
         <ListView android:id="@+id/results"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

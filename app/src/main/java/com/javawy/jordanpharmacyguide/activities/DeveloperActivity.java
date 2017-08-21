@@ -49,9 +49,6 @@ public class DeveloperActivity extends AppCompatActivity implements NavigationVi
             sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "دليل صيدليات الأردن");
             sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
             startActivity(Intent.createChooser(sharingIntent, "دليل صيدليات الأردن"));
-        } else if (id == R.id.nav_developer) {
-            Intent intent = new Intent(this, DeveloperActivity.class);
-            startActivity(intent);
         } else if (id == R.id.nav_favorite) {
             Intent intent = new Intent(this, FavoriteActivity.class);
             startActivity(intent);

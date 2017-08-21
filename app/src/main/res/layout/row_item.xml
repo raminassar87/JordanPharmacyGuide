@@ -23,16 +23,6 @@
         android:text=""
         android:textColor="@android:color/black" />
 
-    <!--ToggleButton
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:id="@+id/myToggleButton"
-        android:textOn=""
-        android:textOff=""/-->
-
     <ImageView
         android:id="@+id/fav_icon"
         android:layout_width="20dp"

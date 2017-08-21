@@ -1,21 +1,28 @@
 package com.javawy.jordanpharmacyguide.activities;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.javawy.jordanpharmacyguide.R;
 import com.javawy.jordanpharmacyguide.utils.PharmacyGuideSQLLitehelper;
@@ -31,14 +38,14 @@ public class ViewDetailsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_details);
 
-        // Populate Drower Layout
-        populateDrowerLayout();
+        // Populate Drawer Layout
+        populateDrawerLayout();
 
         try {
             // Fetch Pharmacy Details..
             fetchPharmacyDetails();
 
-            Button shareResult = (Button)findViewById(R.id.shareResult);
+            Button shareResult = (Button) findViewById(R.id.shareResult);
             shareResult.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -46,7 +53,7 @@ public class ViewDetailsActivity extends AppCompatActivity
                 }
             });
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -60,12 +67,12 @@ public class ViewDetailsActivity extends AppCompatActivity
 
         PharmacyGuideSQLLitehelper dpHelper = new PharmacyGuideSQLLitehelper(this);
         SQLiteDatabase liteDatabase = dpHelper.getReadableDatabase();
-        Cursor cursor =  null;
-        String[] parameter = new String[] {pharmacyId.toString()};
+        Cursor cursor = null;
+        String[] parameter = new String[]{pharmacyId.toString()};
 
         try {
             cursor = liteDatabase.query("PHARMACY",
-                    new String[]{"_id","NAME","CITY","ADDRESS","CONTACT_NUMBER","FAX","EMAIL"},
+                    new String[]{"_id", "NAME", "CITY", "ADDRESS", "CONTACT_NUMBER", "FAX", "EMAIL"},
                     "_id = ?",
                     parameter,
                     null, null, null);
@@ -78,7 +85,7 @@ public class ViewDetailsActivity extends AppCompatActivity
             PrintWriter writer = new PrintWriter(stringWriter);
             e.printStackTrace(writer);
 
-            String exception =  stringWriter.getBuffer().toString();
+            String exception = stringWriter.getBuffer().toString();
         } finally {
             cursor.close();
             liteDatabase.close();
@@ -102,7 +109,7 @@ public class ViewDetailsActivity extends AppCompatActivity
             TextView pharmacyAddressValue = (TextView) findViewById(R.id.pharmacyAddressValue);
             pharmacyAddressValue.setText(cursor.getString(3));
 
-            TextView pharmacyContactValue = (TextView) findViewById(R.id.pharmacyContactValue);
+            final TextView pharmacyContactValue = (TextView) findViewById(R.id.pharmacyContactValue);
             pharmacyContactValue.setText(cursor.getString(4));
 
             TextView faxValue = (TextView) findViewById(R.id.faxValue);
@@ -111,22 +118,77 @@ public class ViewDetailsActivity extends AppCompatActivity
             TextView pharmacyEmailValue = (TextView) findViewById(R.id.pharmacyEmailValue);
             pharmacyEmailValue.setText(cursor.getString(6));
 
-            if(!pharmacyEmailValue.getText().equals(getString(R.string.not_exists))) {
+            if (!pharmacyEmailValue.getText().equals(getString(R.string.not_exists))) {
                 pharmacyEmailValue.setGravity(android.view.Gravity.END);
             }
-            if(!faxValue.getText().equals(getString(R.string.not_exists))) {
+            if (!faxValue.getText().equals(getString(R.string.not_exists))) {
                 faxValue.setGravity(android.view.Gravity.END);
             }
-            if(!pharmacyContactValue.getText().equals(getString(R.string.not_exists))) {
-                pharmacyContactValue.setGravity(android.view.Gravity.END);
+            if (!pharmacyContactValue.getText().equals(getString(R.string.not_exists))) {
+                pharmacyContactValue.setCompoundDrawablesWithIntrinsicBounds(R.mipmap.ic_call, 0, 0, 0);
+                pharmacyContactValue.setCompoundDrawablePadding(0);
+                pharmacyContactValue.setGravity(Gravity.END);
+                //callIcon.setBackground(ContextCompat.getDrawable(ViewDetailsActivity.this, R.mipmap.ic_call));
+                pharmacyContactValue.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+                        makeCall();
+                    }
+                });
             }
         }
     }
 
     /**
-     * Populate Drower Layout
+     * Make a Call
      */
-    private void populateDrowerLayout() {
+    public void makeCall() {
+        final TextView pharmacyContactValue = (TextView) findViewById(R.id.pharmacyContactValue);
+
+        // Check Self Permission..
+        if (ActivityCompat.checkSelfPermission(ViewDetailsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermission();
+            return;
+        }
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        intent.setData(Uri.parse("tel:"+pharmacyContactValue.getText()));
+        ActivityCompat.checkSelfPermission(ViewDetailsActivity.this, Manifest.permission.CALL_PHONE);
+
+        // Start Activity..
+        startActivity(intent);
+    }
+
+    /**
+     * Request Permission
+     */
+    private void requestPermission() {
+        try {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(ViewDetailsActivity.this, Manifest.permission.CALL_PHONE)) {
+                ActivityCompat.requestPermissions(ViewDetailsActivity.this,
+                        new String[]{Manifest.permission.CALL_PHONE}, 1);
+            } else {
+                ActivityCompat.requestPermissions(ViewDetailsActivity.this,
+                        new String[]{Manifest.permission.CALL_PHONE}, 1);
+            }
+        } catch(Throwable e) {
+            // Nothing
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    makeCall();
+                }
+                break;
+        }
+    }
+
+    /**
+     * Populate Drawer Layout
+     */
+    private void populateDrawerLayout() {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

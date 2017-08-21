@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.javawy.jordanpharmacyguide.R;
 import com.javawy.jordanpharmacyguide.adapters.CustomAdapter;
@@ -61,28 +62,25 @@ public class ResultActivity extends AppCompatActivity
         // Fetch Pharmacies..
         fetchPharmacies(pharmacyName,city,pharmacyLocation);
 
-        // Populate Drower Layout
-        populateDrowerLayout();
+        // Populate Drawer Layout
+        populateDrawerLayout();
+
+        TextView message = (TextView)findViewById(R.id.not_exists_message);
+        listView = (ListView)findViewById(R.id.results);
+        if(listView.getAdapter().getCount() == 0) {
+            message.setVisibility(View.VISIBLE);
+        } else {
+            message.setVisibility(View.INVISIBLE);
+        }
     }
 
     /**
-     * Populate Drower Layout
+     * Populate Drawer Layout
      */
-    private void populateDrowerLayout() {
+    private void populateDrawerLayout() {
         try {
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
-
-            /*
-            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                }
-            });
-            */
 
             DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
             ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -199,8 +197,6 @@ public class ResultActivity extends AppCompatActivity
                 Intent intent = new Intent(getApplicationContext(), ViewDetailsActivity.class);
                 intent.putExtra("pharmacyId", dataModel.getId());
                 startActivity(intent);
-//                Snackbar.make(view, dataModel.getName()+"\n"+dataModel.getType()+" API: "+dataModel.getVersion_number(), Snackbar.LENGTH_LONG)
-//                        .setAction("No action", null).show();
             }
         });
     }

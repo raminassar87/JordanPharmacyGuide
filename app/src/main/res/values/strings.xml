@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">دليل صيدليات الأردن</string>
     <string name="pharmacy_name">اسم الصيدلية :</string>
+    <string name="enter_pharmacy_name">أدخل إسم الصيديلة</string>
+    <string name="enter_address">أدخل العنوان</string>
     <string name="pharmacy_location">العنوان :</string>
     <string name="pharmacy_email">البريد الإلكتروني :</string>
+    <string name="select_city">إختر المدينة</string>
     <string name="pharmacy_contact">رقم الهاتف  :</string>
     <string name="fax">رقم الفاكس  :</string>
     <string name="not_exists">لا يوجد</string>
@@ -14,6 +17,8 @@
     <string name="from_fav">من قائمة الصيدليات المفضلة</string>
     <string name="confirm_remove_fav_title">تأكيد حذف من الفضلة</string>
     <string name="confirm_remove_fav">من هل أنت متأكد من حذف الصيدلية من القائمة المفضلة</string>
+    <string name="ok">نعم</string>
+    <string name="no">لا</string>
 
     <string name="share_desc">دليل صيدليات الأردن هو برنامج يعطيك خدمة الإستعلام عن أي صيدلية في الأردن بدون إنترنت</string>
     <string name="city_name">المدينة :</string>
@@ -30,9 +35,12 @@
     <string name="developer">مطور التطبيق</string>
     <string name="about">عن التطبيق</string>
     <string name="close">خروج</string>
+    <string name="notExists">لا يوجد صيدليات ضمن معايير البحث المدخلة</string>
+    <string name="favNotExists">لا يوجد صيدليات معرفة في القائمة المفضلة</string>
+    <string name="about_app">صيدليات الأردن هو برنامج يحتوي على جميع البيانات التي يحتاجها الشخص للتواصل مع أي صيدلية في الأردن دون الحاجة للاتصال بالإنترنت.</string>
 
     <string-array name="cities_values">
-        <item></item>
+        <item>إختر المدينة</item>
         <item>عمان</item>
         <item>الزرقاء</item>
         <item>اربد</item>

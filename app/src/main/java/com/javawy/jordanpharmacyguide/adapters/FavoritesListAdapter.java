@@ -17,18 +17,17 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.javawy.jordanpharmacyguide.R;
-import com.javawy.jordanpharmacyguide.activities.MainActivity;
 import com.javawy.jordanpharmacyguide.utils.PharmacyGuideSQLLitehelper;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
-
 /**
- * Created by anupamchugh on 09/02/16.
+ * Favorites List Adapter
+ *
+ * @author Rami Nassar
  */
 public class FavoritesListAdapter extends ArrayAdapter<DataModel> implements View.OnClickListener{
 
@@ -104,7 +103,7 @@ public class FavoritesListAdapter extends ArrayAdapter<DataModel> implements Vie
                             .setTitle(getContext().getString(R.string.confirm_remove_fav_title))
                             .setMessage(getContext().getString(R.string.confirm_remove_fav))
                             .setIcon(android.R.drawable.ic_dialog_alert)
-                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 
                                 public void onClick(DialogInterface dialog, int whichButton) {
                                     String message = null;
@@ -115,17 +114,11 @@ public class FavoritesListAdapter extends ArrayAdapter<DataModel> implements Vie
                                     Snackbar.make(v, message, Snackbar.LENGTH_LONG).setAction("No action", null).show();
                                 }
                             })
-                            .setNegativeButton(android.R.string.no, null).show();
+                            .setNegativeButton(R.string.no, null).show();
                 } catch(Exception e) {
-                    StringWriter stringWriter = new StringWriter();
-                    PrintWriter writer = new PrintWriter(stringWriter);
-                    e.printStackTrace(writer);
-
-                    String exception =  stringWriter.getBuffer().toString();
-                    System.out.println(stringWriter.getBuffer().toString());
+                    // Nothing..
                 }
-
-                }
+            }
         });
 
         // Return the completed view to render on screen
@@ -205,7 +198,7 @@ public class FavoritesListAdapter extends ArrayAdapter<DataModel> implements Vie
                     new String[] {id.toString()});
         } finally {
             if(liteDatabase!= null) {
-                    liteDatabase.close();
+                liteDatabase.close();
             }
         }
     }
