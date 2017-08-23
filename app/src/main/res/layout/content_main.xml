@@ -83,7 +83,13 @@
             android:layout_gravity="right"
             android:maxLength="200"
             android:text="" />
-
+        <!--ProgressBar
+            android:indeterminate="true"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBar1">
+        </ProgressBar-->
         <Button
             android:layout_width="wrap_content"
             android:layout_height="40dip"
@@ -94,6 +100,22 @@
             android:textColor="@color/white"
             android:textSize="15dip"
             android:text="@string/doSearch" />
+
+        <RelativeLayout
+            android:id="@+id/loadingPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:gravity="center" >
+
+            <ProgressBar
+                android:id="@+id/loading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:indeterminate="true" />
+        </RelativeLayout>
 
         <TextView
             android:layout_weight="1"

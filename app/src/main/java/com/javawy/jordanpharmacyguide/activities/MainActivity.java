@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -76,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // Load Page Add..
         loadPageAdd();
+
+        findViewById(R.id.loadingPanel).setVisibility(View.GONE);
     }
 
     /**
@@ -91,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Populate Drawer Layout
      */
     private void populateDrawerLayout() {
-
+        
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -110,26 +113,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      */
     public void doSearch(View view) {
 
-        Intent intent = new Intent(this, ResultActivity.class);
+        findViewById(R.id.loadingPanel).setVisibility(View.VISIBLE);
 
-        EditText pharmacyNameText = (EditText) findViewById(R.id.pharmacyNameText);
-        EditText pharmacyLocationText = (EditText) findViewById(R.id.locationText);
-        Spinner citiesSpinner = (Spinner) findViewById(R.id.citiesSpinner);
-        String pharmacyName = pharmacyNameText.getText().toString().trim();
-        String pharmacyLocation = pharmacyLocationText.getText().toString().trim();
-        String city = citiesSpinner.getSelectedItem().toString();
+        new Handler().postDelayed(new Runnable() {
 
-        if(!Utils.isBlankOrNull(pharmacyName)) {
-            intent.putExtra("pharmacyName", pharmacyName);
-        }
-        if(!Utils.isBlankOrNull(pharmacyLocation)) {
-            intent.putExtra("pharmacyLocation", pharmacyLocation);
-        }
-        if(!Utils.isBlankOrNull(city) && !city.equals(getString(R.string.select_city))) {
-            intent.putExtra("city", city);
-        }
+            /*
+             * Showing splash screen with a timer. This will be useful when you
+             * want to show case your app logo / company
+             */
 
-        startActivity(intent);
+            @Override
+            public void run() {
+                Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+
+                EditText pharmacyNameText = (EditText) findViewById(R.id.pharmacyNameText);
+                EditText pharmacyLocationText = (EditText) findViewById(R.id.locationText);
+                Spinner citiesSpinner = (Spinner) findViewById(R.id.citiesSpinner);
+                String pharmacyName = pharmacyNameText.getText().toString().trim();
+                String pharmacyLocation = pharmacyLocationText.getText().toString().trim();
+                String city = citiesSpinner.getSelectedItem().toString();
+
+                if(!Utils.isBlankOrNull(pharmacyName)) {
+                    intent.putExtra("pharmacyName", pharmacyName);
+                }
+                if(!Utils.isBlankOrNull(pharmacyLocation)) {
+                    intent.putExtra("pharmacyLocation", pharmacyLocation);
+                }
+                if(!Utils.isBlankOrNull(city) && !city.equals(getString(R.string.select_city))) {
+                    intent.putExtra("city", city);
+                }
+                startActivity(intent);
+
+                findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+            }
+        }, 1000);
     }
 
     /**
