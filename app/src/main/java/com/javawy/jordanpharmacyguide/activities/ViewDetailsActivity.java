@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,19 +18,27 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.javawy.jordanpharmacyguide.R;
 import com.javawy.jordanpharmacyguide.utils.PharmacyGuideSQLLitehelper;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+/**
+ * View Details Activity
+ *
+ * @author Rami Nassar
+ */
 public class ViewDetailsActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    /** List View */
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +51,9 @@ public class ViewDetailsActivity extends AppCompatActivity
         try {
             // Fetch Pharmacy Details..
             fetchPharmacyDetails();
+
+            // Load Page Add..
+            loadPageAdd();
 
             Button shareResult = (Button) findViewById(R.id.shareResult);
             shareResult.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +68,14 @@ public class ViewDetailsActivity extends AppCompatActivity
         }
     }
 
+    /**
+     * Load Page Add
+     */
+    private void loadPageAdd() {
+        mAdView = (AdView) findViewById(R.id.adViewMain);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }
     /**
      * Fetch Pharmacy Details..
      */

@@ -26,6 +26,8 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.javawy.jordanpharmacyguide.R;
 import com.javawy.jordanpharmacyguide.utils.Utils;
 
@@ -34,6 +36,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    /*
+     * Fields
+     */
+    private AdView mAdView;
+
+    /*
+     * Methods
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,27 +71,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Init City Spinner
         initCitySpinner();
 
-        // Populate Drower Layout
-        populateDrowerLayout();
+        // Populate Drawer Layout
+        populateDrawerLayout();
+
+        // Load Page Add..
+        loadPageAdd();
     }
 
     /**
-     * Populate Drower Layout
+     * Load Page Add
      */
-    private void populateDrowerLayout() {
+    private void loadPageAdd() {
+        mAdView = (AdView) findViewById(R.id.adViewMain);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+    }
+
+    /**
+     * Populate Drawer Layout
+     */
+    private void populateDrawerLayout() {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-/*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-*/
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);

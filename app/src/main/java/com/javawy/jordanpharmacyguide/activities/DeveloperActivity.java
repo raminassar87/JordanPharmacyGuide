@@ -11,12 +11,16 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.javawy.jordanpharmacyguide.R;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
 public class DeveloperActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,18 @@ public class DeveloperActivity extends AppCompatActivity implements NavigationVi
 
         // Populate Drower Layout
         populateDrowerLayout();
+
+        // Load Page Add..
+        loadPageAdd();
+    }
+
+    /**
+     * Load Page Add
+     */
+    private void loadPageAdd() {
+        mAdView = (AdView) findViewById(R.id.adViewMain);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

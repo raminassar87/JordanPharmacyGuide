@@ -70,7 +70,7 @@ public class ResultActivity extends AppCompatActivity
         if(listView.getAdapter().getCount() == 0) {
             message.setVisibility(View.VISIBLE);
         } else {
-            message.setVisibility(View.INVISIBLE);
+            message.setVisibility(View.GONE);
         }
     }
 

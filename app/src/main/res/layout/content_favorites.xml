@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_favorites"
-    tools:context="com.javawy.jordanpharmacyguide.activities.FavoriteActivity">
+    tools:context="com.javawy.jordanpharmacyguide.activities.FavoriteActivity"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <TextView android:id="@+id/not_exists_fav"
         android:layout_width="match_parent"
@@ -16,7 +21,7 @@
         android:textColor="@color/red"
         android:paddingTop="30dp"
         android:layout_height="wrap_content"
-        android:text="@string/favNotExists"/>
+        android:text="@string/favNotExists" />
 
     <ListView android:id="@+id/resultsFav"
         android:layout_width="wrap_content"
@@ -25,6 +30,17 @@
         android:choiceMode="singleChoice"
         android:divider="#d3d3d3"
         android:dividerHeight="1dp"
-        android:background="#ffffff"/>
+        android:background="#ffffff" />
+    
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adViewMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="@string/add_mob_unit_id">
+    </com.google.android.gms.ads.AdView>
 
-</android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>

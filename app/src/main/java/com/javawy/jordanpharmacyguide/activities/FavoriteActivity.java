@@ -17,6 +17,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.javawy.jordanpharmacyguide.R;
 import com.javawy.jordanpharmacyguide.adapters.FavoritesListAdapter;
 import com.javawy.jordanpharmacyguide.adapters.DataModel;
@@ -29,6 +31,11 @@ import java.util.ArrayList;
 public class FavoriteActivity  extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    /*
+     * Fields
+     */
+    private AdView mAdView;
+
     /** Data Models */
     ArrayList<DataModel> dataModels;
 
@@ -38,6 +45,10 @@ public class FavoriteActivity  extends AppCompatActivity
     /** Custom Adapter */
     private static FavoritesListAdapter adapter;
 
+    /*
+     * Methods
+     */
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,16 +57,28 @@ public class FavoriteActivity  extends AppCompatActivity
         // Fetch Favorite Pharmacies..
         fetchFavoritePharmacies();
 
-        // Populate Drawer Layout
-        populateDrawerLayout();
-
         TextView message = (TextView)findViewById(R.id.not_exists_fav);
         listView = (ListView)findViewById(R.id.resultsFav);
         if(listView.getAdapter().getCount() == 0) {
             message.setVisibility(View.VISIBLE);
         } else {
-            message.setVisibility(View.INVISIBLE);
+            message.setVisibility(View.GONE);
         }
+
+        // Populate Drawer Layout
+        populateDrawerLayout();
+
+        // Load Page Add..
+        loadPageAdd();
+    }
+
+    /**
+     * Load Page Add
+     */
+    private void loadPageAdd() {
+        mAdView = (AdView) findViewById(R.id.adViewMain);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     /**

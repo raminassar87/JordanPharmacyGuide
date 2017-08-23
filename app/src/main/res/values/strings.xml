@@ -36,7 +36,7 @@
     <string name="about">عن التطبيق</string>
     <string name="close">خروج</string>
     <string name="notExists">لا يوجد صيدليات ضمن معايير البحث المدخلة</string>
-    <string name="favNotExists">لا يوجد صيدليات معرفة في القائمة المفضلة</string>
+    <string name="favNotExists">يمكنك إضافة صيدليات ضمن اللائحة المفضلة عن طريق الضغط على اشارة النجمة</string>
     <string name="about_app">صيدليات الأردن هو برنامج يحتوي على جميع البيانات التي يحتاجها الشخص للتواصل مع أي صيدلية في الأردن دون الحاجة للاتصال بالإنترنت.</string>
 
     <string-array name="cities_values">
@@ -63,10 +63,10 @@
     <!-- -
         This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
         For more information, see https://support.google.com/admob/answer/3052638
-    <!- -->
-    <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
 
-    <!--
-        Rami ca-app-pub-3517273960705854/3161204729
-    -->
+        ca-app-pub-3940256099942544/1033173712
+
+    <!- -->
+    <string name="add_mob_unit_id">ca-app-pub-3517273960705854/3793773308</string>
+
 </resources>
