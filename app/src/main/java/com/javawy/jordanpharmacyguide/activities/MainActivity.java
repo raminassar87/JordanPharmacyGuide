@@ -15,17 +15,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -41,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     /*
      * Fields
      */
+
+    /** mAd View */
     private AdView mAdView;
 
     /*
@@ -75,17 +74,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Populate Drawer Layout
         populateDrawerLayout();
 
-        // Load Page Add..
-        loadPageAdd();
-
         findViewById(R.id.loadingPanel).setVisibility(View.GONE);
+        try {
+            // Load Page Add..
+            loadPageAdd();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * Load Page Add
      */
     private void loadPageAdd() {
-        mAdView = (AdView) findViewById(R.id.adViewMain);
+        mAdView = (AdView) findViewById(R.id.adViewMain1);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
@@ -94,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      * Populate Drawer Layout
      */
     private void populateDrawerLayout() {
-        
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

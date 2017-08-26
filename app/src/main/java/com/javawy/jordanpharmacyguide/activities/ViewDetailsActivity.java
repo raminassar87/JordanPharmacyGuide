@@ -49,11 +49,11 @@ public class ViewDetailsActivity extends AppCompatActivity
         populateDrawerLayout();
 
         try {
-            // Fetch Pharmacy Details..
-            fetchPharmacyDetails();
-
             // Load Page Add..
             loadPageAdd();
+
+            // Fetch Pharmacy Details..
+            fetchPharmacyDetails();
 
             Button shareResult = (Button) findViewById(R.id.shareResult);
             shareResult.setOnClickListener(new View.OnClickListener() {
@@ -72,10 +72,11 @@ public class ViewDetailsActivity extends AppCompatActivity
      * Load Page Add
      */
     private void loadPageAdd() {
-        mAdView = (AdView) findViewById(R.id.adViewMain);
+        mAdView = (AdView) findViewById(R.id.adViewDetails);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }
+
     /**
      * Fetch Pharmacy Details..
      */

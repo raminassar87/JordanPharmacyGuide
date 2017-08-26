@@ -38,7 +38,7 @@ public class DeveloperActivity extends AppCompatActivity implements NavigationVi
      * Load Page Add
      */
     private void loadPageAdd() {
-        mAdView = (AdView) findViewById(R.id.adViewMain);
+        mAdView = (AdView) findViewById(R.id.adViewDeveloper);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
     }

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/app_bar_favorites"
     tools:context="com.javawy.jordanpharmacyguide.activities.FavoriteActivity"
@@ -14,33 +15,48 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <TextView android:id="@+id/not_exists_fav"
-        android:layout_width="match_parent"
-        android:textAlignment="center"
-        android:textSize="20dp"
-        android:textColor="@color/red"
-        android:paddingTop="30dp"
-        android:layout_height="wrap_content"
-        android:text="@string/favNotExists" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <ListView android:id="@+id/resultsFav"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="right"
-        android:choiceMode="singleChoice"
-        android:divider="#d3d3d3"
-        android:dividerHeight="1dp"
-        android:background="#ffffff" />
-    
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adViewMain"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/add_mob_unit_id">
-    </com.google.android.gms.ads.AdView>
+        <TextView android:id="@+id/not_exists_fav"
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textColor="@color/red"
+            android:paddingTop="30dp"
+            android:layout_height="wrap_content"
+            android:text="@string/favNotExists" />
 
+        <ListView android:id="@+id/resultsFav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:choiceMode="singleChoice"
+            android:divider="#d3d3d3"
+            android:dividerHeight="1dp"
+            android:background="#ffffff" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:orientation="vertical" >
+
+            <com.google.android.gms.ads.AdView
+                xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adViewMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                ads:adSize="SMART_BANNER"
+                ads:adUnitId="@string/add_mob_unit_id">
+            </com.google.android.gms.ads.AdView>
+
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context="com.javawy.jordanpharmacyguide.activities.MainActivity"
     tools:showIn="@layout/app_bar_main"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -17,10 +18,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adViewMain1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/add_mob_unit_id">
+        </com.google.android.gms.ads.AdView>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
+            android:textStyle="bold"
             android:layout_alignParentRight="true"
             android:layout_gravity="right"
             android:inputType="text"
@@ -45,6 +57,7 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:layout_marginTop="10dip"
             android:text="@string/city_name"
             android:layout_marginBottom="5dp"/>
@@ -63,6 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dip"
+            android:textStyle="bold"
             android:layout_alignParentRight="true"
             android:layout_gravity="right"
             android:text="@string/pharmacy_location"
@@ -122,16 +136,6 @@
             android:layout_height="0dp"
             android:layout_width="match_parent"
             android:text=""/>
-
-        <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/adViewMain"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            ads:adSize="SMART_BANNER"
-            ads:adUnitId="@string/add_mob_unit_id">
-        </com.google.android.gms.ads.AdView>
-
+        
     </LinearLayout>
 </ScrollView>

@@ -17,6 +17,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.javawy.jordanpharmacyguide.R;
 import com.javawy.jordanpharmacyguide.adapters.CustomAdapter;
 import com.javawy.jordanpharmacyguide.adapters.DataModel;
@@ -35,9 +37,12 @@ import java.util.ArrayList;
 public class ResultActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    /**
+    /*
      * Fields
      */
+
+    /** mAd View */
+    private AdView mAdView;
 
     /** Data Models */
     ArrayList<DataModel> dataModels;
@@ -72,6 +77,18 @@ public class ResultActivity extends AppCompatActivity
         } else {
             message.setVisibility(View.GONE);
         }
+
+        // Load Page Add..
+        loadPageAdd();
+    }
+
+    /**
+     * Load Page Add
+     */
+    private void loadPageAdd() {
+        mAdView = (AdView) findViewById(R.id.adViewResult);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     /**
